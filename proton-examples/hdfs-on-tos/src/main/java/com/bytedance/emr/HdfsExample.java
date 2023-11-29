@@ -31,6 +31,7 @@ import java.nio.charset.StandardCharsets;
  * <pre>
  *    export TOS_ACCESS_KEY_ID={YOUR-TOS-ACCESS-KEY-ID}  ;
  *    export TOS_SECRET_ACCESS_KEY={YOUR-TOS-SECRET_KEY} ;
+ *    export TOS_ENDPOINT={YOUR-TOS-ENDPOINT}            ;
  *    export TOS_BUCKET_NAME={YOUR-TOS-BUCKET-NAME}      ;
  * </pre>
  * }
