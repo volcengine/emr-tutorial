@@ -59,6 +59,8 @@ public class HdfsExample {
     String tosEndpoint = parseEnvironVar(ENV_TOS_ENDPOINT);
     String tosBucketName = parseEnvironVar(ENV_TOS_BUCKET_NAME);
 
+    // If we've already set those config keys in hadoop's core-site.xml, then we don't need to set explicitly here
+    // again.
     Configuration conf = new Configuration();
     conf.set("fs.tos.impl", "io.proton.fs.ProtonFileSystem");
     conf.set("fs.tos.access-key-id", tosAccessKeyId);
