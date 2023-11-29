@@ -1,8 +1,34 @@
-.idea
+*~
+*.o
+*.sw[po]
 *.orig
 *.rej
 *.iml
+.deps
+.dirstamp
+.vscode
+.idea
+dist/
+output/
+.release-env
+.DS_Store
+docs/node_modules
 *.dump
 *.out
+.hypothesis
+__pycache__
 
-
+# For hadoop Java SDK projects.
+*.dll
+*.dylib
+*.h
+*.so
+.classpath
+.project
+.settings/
+dependency-reduced-pom.xml
+target/
+derby.log
+metastore_db/
+.backend-fs-tmp/
+_book/
