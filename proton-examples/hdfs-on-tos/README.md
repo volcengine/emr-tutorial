@@ -41,6 +41,7 @@ export TOS_ENDPOINT=<YOUR_TOS_ENDPOINT>
 # export TOS_BUCKET_NAME=testBucket
 export TOS_BUCKET_NAME=<YOUR-TOS-BUCKET-NAME>
 
+# 请确保当前目录位于：proton-examples/hdfs-on-tos 目录下
 mvn compile exec:java -Dexec.mainClass="com.bytedance.emr.HdfsExample"
 ```
 
