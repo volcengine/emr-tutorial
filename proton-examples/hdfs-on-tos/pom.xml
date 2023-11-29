@@ -6,20 +6,27 @@
         <artifactId>emr-demo</artifactId>
         <groupId>com.bytedance.emr</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
-
-    <artifactId>proton-examples</artifactId>
-    <packaging>pom</packaging>
-
     <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>hdfs-on-tos</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-    <modules>
-        <module>flink-on-tos</module>
-        <module>hdfs-on-tos</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>io.proton</groupId>
+            <artifactId>proton-hadoop3-bundle</artifactId>
+            <version>1.7-dev</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>3.3.4</version>
+        </dependency>
+    </dependencies>
 </project>
