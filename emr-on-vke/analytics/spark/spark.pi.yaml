@@ -1,0 +1,21 @@
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: spark-pi-100000-01
+spec:
+  type: Scala
+  sparkVersion: 3.5.1
+  mainClass: org.apache.spark.examples.SparkPi
+  mainApplicationFile: "/opt/spark/examples/jars/spark-examples_2.12-3.5.1.jar"
+  arguments:
+    - "1000"
+  driver:
+    cores: 1
+    coreLimit: 1000m
+    memory: 2g
+  executor:
+    cores: 1
+    coreLimit: 1000m
+    memory: 4g
+    memoryOverhead: 2g
+    instances: 2

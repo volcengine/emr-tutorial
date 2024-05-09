@@ -1,8 +1,17 @@
 ## 火山EMR简介
-火山引擎E-MapReduce（简称“EMR”）是开源Hadoop生态的企业级大数据分析系统，完全兼容开源，提供Hadoop、Spark、Hive、Flink、Hudi、Iceberg等生态组件集成和管理，支持海量数据的存储、查询和分析，可弹性伸缩，按需使用，更低成本，可与数据开发治理套件等其他产品能力结合，提供端到端的数据接入/分析/挖掘能力，帮助用户轻松完成企业大数据平台的构建和数据上云，降低运维门槛，加速数据洞察和业务决策。
 
-## 代码结构介绍
-在本代码工程中，提供一些EMR常用的一些场景和用例。不同的场景放在不同的moudle中，并在每个moudle的README.md文档中提供该场景的使用方法。现在介绍下不同的moudle适用的场景。
-* **Proton-examples** 存算分离场景下，使用EMR自研的加速引擎proton可以提高读写TOS的性能。该样例代码中提供了Flink组件中使用proton的操作样例。关于proton的介绍可参考🔗[Proton概述](https://www.volcengine.com/docs/6491/149821)
-* **iceberg-examples** 对Iceberg表进行读写的样例代码
-* **flink-examples** 关于Flink引擎样例代码
+火山EMR 提供火山增强的 Hadoop、Spark、Flink、Hive、Presto、Hudi、Iceberg 、Doris/StarRocks、Ray、PyTorch 等大数据与AI 生态组件，100%开源兼容，支持构建 数据湖、湖仓一体、Data for AI 等平台架构。
+提供on ECS形态、ON VKE形态，VKE是火山引擎容器服务。EMR中自研湖加速引擎 Proton，存算分离场景下，性能超过存算一体，且成本降低。同时自研向量化执行引擎 Bolt，Spark/Presto计算引擎性能优于开源。
+EMR on VKE形态下，提供离线负载与在线业务混部，提高资源利用率；提供Spark、Ray、PyTorch等AI框架和数据预处理工程实践优化等功能。
+
+![img.png](images/emr.png)
+
+
+## Getting Started
+在该工程源码中，提供on ECS形态和on VKE形态下引擎使用示例，便于用于更好的上手。
+- **emr-on-ecs**  提供存算分离等场景下的示例代码，参考emr-on-ecs目录下README.md文档进行操作和使用。也可以参考官网[emr-on-ecs](https://www.volcengine.com/docs/6491/1216706) 。
+- **emr-on-vke** 提供一些AI和数据分析场景下的示例工程，参考emr-on-vke目录下README.md文档进行操作和使用。也可以参考官网[emr-on-vke](https://www.volcengine.com/docs/6491/1218706) 。
+
+
+## 🤝 支持与反馈
+本工程由火山引擎EMR服务团队维护，如果您有反馈、功能想法或希望报告错误，请使用此 GitHub 的[Issues](https://github.com/volcengine/emr-tutorial/issues)，我们将尽最大努力提供支持。
