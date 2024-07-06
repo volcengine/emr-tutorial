@@ -10,14 +10,13 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>flink-examples</module>
-        <module>iceberg-examples</module>
         <module>proton-examples</module>
     </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <flink.version>1.16.1</flink.version>
+        <flink.version>1.15.4</flink.version>
         <hadoop.version>3.3.4</hadoop.version>
         <spark.version>3.2.1</spark.version>
         <iceberg.version>1.2.0</iceberg.version>
