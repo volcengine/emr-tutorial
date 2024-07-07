@@ -98,13 +98,21 @@ public class KafkaToTosDemo {
   }
 
   private static DataStream<String> createFileSource(StreamExecutionEnvironment env, Path path) {
+    // Below flink 1.14
+    // FileSource<String> source = FileSource.forRecordStreamFormat(new TextLineFormat(), path)
+    //    .monitorContinuously(Duration.ofSeconds(1L))
+    //    .build();
+
+    // Above flink 1.14
     FileSource<String> source = FileSource.forRecordStreamFormat(new TextLineInputFormat(), path)
         .monitorContinuously(Duration.ofSeconds(1L))
         .build();
+
     return env.fromSource(source, WatermarkStrategy.forMonotonousTimestamps(), "file-source");
   }
 
   private static StreamingFileSink<TickCount> createTosSinkFromStaticConfig(String outputPath) {
+    // Above Flink 1.14
     return StreamingFileSink
         .forBulkFormat(new Path(outputPath), AvroParquetWriters.forReflectRecord(TickCount.class))
         .withBucketAssigner(new DateTimeBucketAssigner<>("'year='yyyy'/month='MM'/day='dd'/hour='HH/"))
@@ -114,6 +122,19 @@ public class KafkaToTosDemo {
             .withPartSuffix(".parquet")
             .build())
         .build();
+
+    // Below Flink 1.14
+    /*
+    return StreamingFileSink
+        .forBulkFormat(new Path(outputPath), ParquetAvroWriters.forReflectRecord(TickCount.class))
+        .withBucketAssigner(new DateTimeBucketAssigner<>("'year='yyyy'/month='MM'/day='dd'/hour='HH/"))
+        .withRollingPolicy(OnCheckpointRollingPolicy.build())
+        .withOutputFileConfig(OutputFileConfig.builder()
+            .withPartPrefix("complete")
+            .withPartSuffix(".parquet")
+            .build())
+        .build();
+     */
   }
 
   private static StreamingFileSink<TickCount> createTosSnappySinkFromStaticConfig(String outputPath) {

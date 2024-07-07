@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>flink-examples</module>
+        <module>iceberg-examples</module>
         <module>proton-examples</module>
     </modules>
 
