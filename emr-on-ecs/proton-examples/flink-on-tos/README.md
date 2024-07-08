@@ -19,14 +19,15 @@
 # Flink On Tos
 
 The project contains a KafkaToTosDemo demo which shows how to consume ticket data from Kafka or file,
-and sink to object storage with parquet.
+and sink to object storage with parquet format.
 
 ## Pom dependencies
 
 It's easy to integrate proton flink plugin, besides the flink dependencies, only need to include
 the `proton-flink${flink.version}`
-, `proton-hadoop3-bundle`and `flink-shaded-hadoop-3-uber` modules. If you want to run the flink app in EMR cluster,
-you can mark these three modules as provided scope.
+, `proton-hadoop3-bundle`and `flink-shaded-hadoop-3-uber` modules. If your flink runtime has provided these
+dependencies, you can mark these three modules as provided scope and exclude them from application jar, e.g. Submit
+flink job to EMR Yarn.
 
 ```xml
 
@@ -55,9 +56,9 @@ you can mark these three modules as provided scope.
 ## Proton SDK dependencies
 
 Before build this project, you can use the below script to install proton 2.0.0 version, and install the offline jars
-into you local maven repository. And then you can run the demo in local, and if you only want to run application in the
-flink runtime has already contains these dependencies, e.g. Flink on EMR, Flink docker image contains these artifacts,
-you can skip this step and removing them in your pom.xml.
+into you local maven repository. And then you can run the demo in your local environment, and if you only want to run
+application in the flink runtime has already contains these dependencies, e.g. Flink on EMR, Flink docker image contains
+these artifacts, you can skip this step and removing them in your pom.xml.
 
 ```bash
 #!/bin/bash
@@ -134,8 +135,7 @@ ${KAFKA_HOME}/bin/kafka-console-producer.sh --bootstrap-server {borker1_ip}:9092
 ```
 
 And then copy the `flink-on-tos-1.0-SNAPSHOT.jar` to flink cluster, e.g. `/opt/flink-on-tos-1.0-SNAPSHOT.jar`, and then
-submit the
-application:
+submit the application:
 
 ```shell
 ${FLINK_HOME}/bin/flink run-application \
@@ -149,10 +149,11 @@ ${FLINK_HOME}/bin/flink run-application \
 
 ### 2. Run KafkaToObjectStorage on k8s via flink k8s operator
 
-Assume k8s cluster and flink k8s operator has been installed, and then we want to submit the demo job via
+Assume the k8s cluster and flink k8s operator has been installed, and then we want to submit the demo job via
 FlinkDeployment.
 
 First, we need to build customized docker image which contains the demo jar. For example:
+
 ```Dockerfile
 FROM flink:1.15.4-scala_2.12-java11
 
@@ -162,9 +163,11 @@ COPY flink-shaded-hadoop-3-uber-3.1.1.7.1.1.0-565-9.0.jar /opt/flink/lib/
 
 COPY flink-on-tos-1.0-SNAPSHOT.jar /opt/flink/application/
 ```
+
 And build docker image via `docker build -t flink-on-tos-demo:v0.0.1 .`
 
 Second, we need to create the deployment yaml file `flink-tos-demo.yaml`, For example:
+
 ```yaml
 apiVersion: flink.apache.org/v1beta1
 kind: FlinkDeployment
@@ -175,7 +178,7 @@ spec:
   flinkVersion: v1_15
   flinkConfiguration:
     taskmanager.numberOfTaskSlots: "2"
-    fs.tos.endpoint: "https://tos-cn-beijing.volces.com"
+    fs.tos.endpoint: "YOUR_BUCKET_ENDPOINT"
     fs.tos.access-key-id: "YOUR_AK"
     fs.tos.secret-access-key: "YOUR_SK"
   serviceAccount: flink
@@ -190,18 +193,18 @@ spec:
   job:
     jarURI: local:///opt/flink/application/flink-on-tos-1.0-SNAPSHOT.jar
     args:
-     - "--output.path"
-     - "tos://xxxxx/flink/ticket/parquet115/"
-     - "--kafka.topic"
-     - "flink-proton"
-     - "--kafka.bootstrap.servers"
-     - "192.168.2.79:9092,192.168.2.77:9092,192.168.2.76:9092"
-     - "--checkpoint.path"
-     - "tos://xxxxx/flink/ckp"
-     - "--checkpoint.interval"
-     - "10000"
-     - "--kafka.consumer.group.id"
-     - "k8s-flink-consumer"
+      - "--output.path"
+      - "tos://{your_bucket}/flink/ticket/parquet/"
+      - "--kafka.topic"
+      - "{kafka_topic}"
+      - "--kafka.bootstrap.servers"
+      - "192.168.2.79:9092,192.168.2.77:9092,192.168.2.76:9092"
+      - "--checkpoint.path"
+      - "tos://{your_bucket}/flink/ckp"
+      - "--checkpoint.interval"
+      - "10000"
+      - "--kafka.consumer.group.id"
+      - "k8s-flink-consumer"
     parallelism: 1
     upgradeMode: stateless
 ```

@@ -7,7 +7,7 @@ spec:
   flinkVersion: v1_15
   flinkConfiguration:
     taskmanager.numberOfTaskSlots: "2"
-    fs.tos.endpoint: "https://tos-cn-beijing.volces.com"
+    fs.tos.endpoint: "xxxx"
     fs.tos.access-key-id: "xxxx"
     fs.tos.secret-access-key: "xxxxx"
   serviceAccount: flink
@@ -27,7 +27,7 @@ spec:
       - "--os.output.path"
       - "tos://xxxx/flink/ticket/parquet/"
       - "--kafka.topic"
-      - "flink_test"
+      - "xxxx"
       - "--kafka.bootstrap.servers"
       - "192.168.1.110:9092,192.168.1.109:9092"
       - "--checkpoint.path"
