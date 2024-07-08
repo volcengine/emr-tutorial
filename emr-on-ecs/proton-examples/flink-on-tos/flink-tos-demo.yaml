@@ -22,9 +22,7 @@ spec:
   job:
     jarURI: local:///opt/flink/application//flink-on-tos-1.0-SNAPSHOT.jar
     args:
-      - "--output.mode"
-      - "parquet"
-      - "--os.output.path"
+      - "--output.path"
       - "tos://xxxx/flink/ticket/parquet/"
       - "--kafka.topic"
       - "xxxx"
