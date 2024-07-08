@@ -5,7 +5,7 @@ PROTON_VERSION=2.0.0
 wget https://proton-pkgs.tos-cn-beijing.volces.com/public/proton-$PROTON_VERSION-bin.tar.gz
 tar xzvf proton-$PROTON_VERSION-bin.tar.gz
 
-Install the local artifact into local maven repository.
+# Install the local artifact into local maven repository.
 mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file \
    -Dfile=proton-$PROTON_VERSION-bin/plugins/hadoop3/proton-hadoop3-bundle-$PROTON_VERSION.jar \
    -DgroupId=io.proton \
