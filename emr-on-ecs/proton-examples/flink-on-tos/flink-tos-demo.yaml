@@ -1,0 +1,36 @@
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkDeployment
+metadata:
+  name: flink-kafka-to-tos-demo
+spec:
+  image: flink-on-tos-demo:v0.0.1
+  flinkVersion: v1_15
+  flinkConfiguration:
+    taskmanager.numberOfTaskSlots: "2"
+    fs.tos.endpoint: "xxxx"
+    fs.tos.access-key-id: "xxxx"
+    fs.tos.secret-access-key: "xxxxx"
+  serviceAccount: flink
+  jobManager:
+    resource:
+      memory: "2048m"
+      cpu: 1
+  taskManager:
+    resource:
+      memory: "2048m"
+      cpu: 1
+  job:
+    jarURI: local:///opt/flink/application//flink-on-tos-1.0-SNAPSHOT.jar
+    args:
+      - "--output.path"
+      - "tos://xxxx/flink/ticket/parquet/"
+      - "--kafka.topic"
+      - "xxxx"
+      - "--kafka.bootstrap.servers"
+      - "192.168.1.110:9092,192.168.1.109:9092"
+      - "--checkpoint.path"
+      - "tos://xxxx/flink/ckp"
+      - "--checkpoint.interval"
+      - "10000"
+    parallelism: 2
+    upgradeMode: stateless
