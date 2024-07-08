@@ -57,7 +57,7 @@ public class KafkaToTosDemo {
     env.getCheckpointConfig().setCheckpointInterval(checkpointInterval);
 
     DataStream<String> stream;
-    if ("KAFKA".equals(sourceType.toLowerCase())) {
+    if ("KAFKA".equalsIgnoreCase(sourceType)) {
       String topic = pt.getRequired("kafka.topic");
       String consumerGroup = pt.get("kafka.consumer.group.id", "kafka-to-tos-demo-group");
       String bootstrapServers = pt.getRequired("kafka.bootstrap.servers");
