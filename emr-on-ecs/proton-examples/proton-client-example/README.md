@@ -18,9 +18,9 @@ tar xzvf proton-$PROTON_VERSION-bin.tar.gz
 
 Install the local artifact into local maven repository.
 mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file \
-   -Dfile=proton-$PROTON_VERSION-bin/plugins/hadoop3/proton-common-$PROTON_VERSION.jar \
+   -Dfile=proton-$PROTON_VERSION-bin/plugins/hadoop3/proton-hadoop3-bundle-$PROTON_VERSION.jar \
    -DgroupId=io.proton \
-   -DartifactId=proton-common \
+   -DartifactId=proton-hadoop3-bundle \
    -Dversion=$PROTON_VERSION \
    -Dpackaging=jar
 ```
@@ -73,7 +73,7 @@ java -cp target/proton-client-example-1.0-SNAPSHOT.jar com.bytedance.emr.Restore
 -t IA
 ``` 
 
-4Clean the data
+4. Clean the data
 ```bash
 java -cp target/proton-client-example-1.0-SNAPSHOT.jar com.bytedance.emr.RestoreObjectDemo \
 -p tos://<bucket>/xxxxxx \
