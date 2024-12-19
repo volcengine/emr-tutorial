@@ -19,6 +19,7 @@
     </properties>
 
     <modules>
+        <module>proton-client-example</module>
         <module>flink-on-tos</module>
         <module>hdfs-on-tos</module>
     </modules>
