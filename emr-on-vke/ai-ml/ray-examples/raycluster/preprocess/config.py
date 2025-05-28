@@ -1,5 +1,4 @@
 import s3fs
-import pyarrow.fs
 
 
 def get_fs(s3_fs=True):

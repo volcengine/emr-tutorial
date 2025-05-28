@@ -1,8 +1,8 @@
 
 from typing import Dict
 from datatrove.pipeline.filters import URLFilter
-# from datatrove.data import Document
-# from tldextract import TLDExtract
+from datatrove.data import Document
+from tldextract import TLDExtract
 
 
 class CustomeURLFilter(URLFilter):
@@ -31,13 +31,11 @@ class CustomeURLFilter(URLFilter):
         continue
 
       # pseudo code
-      # metadata = {"url": url}
-      # document = Document(
-      #     text="fake_text", id="fake_id", metadata=metadata)
-      # print(f"------------{document.metadata['url']}")
-      # filtered = super().filter(document)
-      # if filtered:
-      #     continue
+      metadata = {"url": url}
+      document = Document(text="fake_text", id="fake_id", metadata=metadata)
+      filtered = super().filter(document)
+      if filtered:
+          continue
 
       data[url] = text
 
